@@ -1,6 +1,6 @@
 # sudachi-wasm333
 
-> Updated WebAssembly distribution of [sudachi.rs](https://github.com/WorksApplications/sudachi.rs).
+> Updated WebAssembly distribution of [sudachi.rs].
 
 This distribution supports both of browser and Node.js.
 
@@ -8,13 +8,13 @@ This distribution supports both of browser and Node.js.
 
 ## Features
 
-- Updated structure of the original [sudachi-wasm](https://github.com/hata6502/sudachi-wasm) to reassemble the actual structure of [sudachi.rs](https://github.com/WorksApplications/sudachi.rs).
+- Updated structure of the original [sudachi-wasm] to reassemble the actual structure of [sudachi.rs].
 - SudachiStateless and SudachiStateful classes implementation.
 - Slightly improved library docstrings and types.
 - Added dynamic dict loading, so a custom dict path/url can be provided.
 - Improved performance.
 - Improved file size because of dynamic dict loading.
-- Structure kinda inspired in [Kuroshiro](https://github.com/hexenq/kuroshiro) initialization.
+- Structure kinda inspired in [Kuroshiro] initialization.
 
 ## Usage
 
@@ -55,7 +55,7 @@ Please use the following mechanisms to delivery it.
 ### Node.js
 
 ```bash
-npm i sudachi
+npm i sudachi-wasm333
 ```
 
 Then,
@@ -115,3 +115,8 @@ node test/special_chars.mjs
 - Add SudachiStateful examples.
 - Improve documentation.
 - Edit [README.ja.md](README.ja.md).
+- Add demo (like the original sudachi-wasm: https://sudachi-wasm.s3.amazonaws.com/index.html).
+
+[sudachi.rs]: https://github.com/WorksApplications/sudachi.rs
+[sudachi-wasm]: https://github.com/hata6502/sudachi-wasm
+[Kuroshiro]: https://github.com/hexenq/kuroshiro
