@@ -46,7 +46,9 @@ if (!packageObject.module) {
 await fs.appendFile(packageObject.module, initializeScript);
 
 packageObject.files = packageObject.files.filter(file => !file.endsWith('.wasm'));
+packageObject.files.push("resources");
 packageObject.main = packageObject.module;
+packageObject.name = "sudachi-wasm333"
 packageObject.type = "module";
 
 await fs.writeFile('package.json', JSON.stringify(packageObject, null, 2));
