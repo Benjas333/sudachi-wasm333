@@ -76,6 +76,12 @@ impl<D: DictionaryAccess> StatefulTokenizer<D> {
         std::mem::replace(&mut self.debug, debug)
     }
 
+    /// Return current debug mode state
+    #[cfg(target_arch = "wasm32")]
+    pub fn debug(&self) -> bool {
+        self.debug
+    }
+
     /// Set the analysis mode and returns the current one
     pub fn set_mode(&mut self, mode: Mode) -> Mode {
         self.subset |= match mode {
@@ -131,13 +137,19 @@ impl<D: DictionaryAccess> StatefulTokenizer<D> {
         let debug = self.debug;
 
         if debug {
+            #[cfg(not(target_arch = "wasm32"))]
             println!("=== Input dump:\n{}", self.input.current());
+            #[cfg(target_arch = "wasm32")]
+            log::info!("=== Input dump:\n{}", self.input.current());
         }
 
         self.build_lattice()?;
 
         if debug {
+            #[cfg(not(target_arch = "wasm32"))]
             println!("=== Lattice dump:");
+            #[cfg(target_arch = "wasm32")]
+            log::info!("=== Lattice dump:");
             let dict = &self.dictionary;
             let mut writer = std::io::stdout();
             self.lattice
@@ -147,7 +159,10 @@ impl<D: DictionaryAccess> StatefulTokenizer<D> {
         let mut path = self.resolve_best_path()?;
 
         if debug {
+            #[cfg(not(target_arch = "wasm32"))]
             println!("=== Before Rewriting:");
+            #[cfg(target_arch = "wasm32")]
+            log::info!("=== Before Rewriting:");
             dump_path(&path);
         };
 
@@ -158,9 +173,15 @@ impl<D: DictionaryAccess> StatefulTokenizer<D> {
         path = split_path(&self.dictionary, path, self.mode, self.subset, &self.input)?;
 
         if debug {
+            #[cfg(not(target_arch = "wasm32"))]
             println!("=== After Rewriting:");
+            #[cfg(target_arch = "wasm32")]
+            log::info!("=== After Rewriting:");
             dump_path(&path);
+            #[cfg(not(target_arch = "wasm32"))]
             println!("===");
+            #[cfg(target_arch = "wasm32")]
+            log::info!("===");
         };
 
         self.top_path = Some(path);

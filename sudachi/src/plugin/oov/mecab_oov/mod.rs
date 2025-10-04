@@ -253,38 +253,28 @@ impl OovProviderPlugin for MeCabOovPlugin {
     fn set_up(
         &mut self,
         settings: &Value,
-        config: &Config,
+        _config: &Config,
         grammar: &mut Grammar,
     ) -> SudachiResult<()> {
         let settings: PluginSettings = serde_json::from_value(settings.clone())?;
 
-        let char_def_path = config.complete_path(
-            settings
-                .charDef
-                .unwrap_or_else(|| PathBuf::from(DEFAULT_CHAR_DEF_FILE)),
-        );
+        // let char_def_path = config.complete_path(
+        //     settings
+        //         .charDef
+        //         .unwrap_or_else(|| PathBuf::from(DEFAULT_CHAR_DEF_FILE)),
+        // );
 
-        let categories = if char_def_path.is_ok() {
-            let reader = BufReader::new(fs::File::open(char_def_path?)?);
-            MeCabOovPlugin::read_character_property(reader)?
-        } else {
-            let reader = BufReader::new(DEFAULT_CHAR_DEF_BYTES);
-            MeCabOovPlugin::read_character_property(reader)?
-        };
+        let reader = BufReader::new(DEFAULT_CHAR_DEF_BYTES);
+        let categories = MeCabOovPlugin::read_character_property(reader)?;
 
-        let unk_def_path = config.complete_path(
-            settings
-                .unkDef
-                .unwrap_or_else(|| PathBuf::from(DEFAULT_UNK_DEF_FILE)),
-        );
+        // let unk_def_path = config.complete_path(
+        //     settings
+        //         .unkDef
+        //         .unwrap_or_else(|| PathBuf::from(DEFAULT_UNK_DEF_FILE)),
+        // );
 
-        let oov_list = if unk_def_path.is_ok() {
-            let reader = BufReader::new(fs::File::open(unk_def_path?)?);
-            MeCabOovPlugin::read_oov(reader, &categories, grammar, settings.userPOS)?
-        } else {
-            let reader = BufReader::new(DEFAULT_UNK_DEF_BYTES);
-            MeCabOovPlugin::read_oov(reader, &categories, grammar, settings.userPOS)?
-        };
+        let reader = BufReader::new(DEFAULT_UNK_DEF_BYTES);
+        let oov_list = MeCabOovPlugin::read_oov(reader, &categories, grammar, settings.userPOS)?;
 
         self.categories = categories;
         self.oov_list = oov_list;

@@ -134,6 +134,9 @@ pub(super) fn split_path<T: DictionaryAccess + ?Sized>(
 
 pub(super) fn dump_path(path: &Vec<ResultNode>) {
     for (i, node) in path.iter().enumerate() {
+        #[cfg(not(target_arch = "wasm32"))]
         println!("{}: {}", i, node);
+        #[cfg(target_arch = "wasm32")]
+        log::info!("{}: {}", i, node);
     }
 }

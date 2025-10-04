@@ -247,6 +247,7 @@ impl Lattice {
                     )
                 };
 
+                #[cfg(not(target_arch = "wasm32"))]
                 write!(
                     out,
                     "{}: {} {} {}{} {} {} {} {}:",
@@ -260,14 +261,31 @@ impl Lattice {
                     r_node.right_id(),
                     r_node.cost()
                 )?;
+                #[cfg(target_arch = "wasm32")]
+                log::info!(
+                    "{}: {} {} {}{} {} {} {} {}:",
+                    dump_idx,
+                    r_node.begin(),
+                    r_node.end(),
+                    surface,
+                    r_node.word_id(),
+                    pos,
+                    r_node.left_id(),
+                    r_node.right_id(),
+                    r_node.cost()
+                );
 
                 let conn = grammar.conn_matrix();
 
                 for l_node in &self.ends[r_node.begin()] {
                     let connect_cost = conn.cost(l_node.right_id(), r_node.left_id());
+                    #[cfg(not(target_arch = "wasm32"))]
                     write!(out, " {}", connect_cost)?;
+                    #[cfg(target_arch = "wasm32")]
+                    log::info!(" {}", connect_cost);
                 }
 
+                #[cfg(not(target_arch = "wasm32"))]
                 writeln!(out)?;
 
                 dump_idx += 1;
