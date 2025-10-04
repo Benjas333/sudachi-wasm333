@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.2] - 2025-10-03
+
+### Changed
+
+- Package now includes the small dict version, because the full one is 3x larger.
+
 ## [1.0.1] - 2025-10-03
 
 ### Added

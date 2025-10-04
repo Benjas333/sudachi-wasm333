@@ -1,6 +1,6 @@
 [package]
 name = "sudachi"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Benjas333 <seston30+npm@gmail.com>"]
 edition.workspace = true
 rust-version.workspace = true

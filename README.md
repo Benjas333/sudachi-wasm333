@@ -18,6 +18,10 @@ This distribution supports both of browser and Node.js.
 
 ## Usage
 
+### Custom Sudachi Dictionary
+
+Sudachi-wasm333 includes a dictionary packaged by default. But if you want to use a specific version, you can download it from [here][Sudachi Dictionary] and provide the path/url through the class initializer.
+
 ### Browser
 
 <!-- [v0.1.4.js](https://sudachi-wasm.s3.amazonaws.com/v0.1.4.js) -->
@@ -30,7 +34,7 @@ This distribution supports both of browser and Node.js.
 
   const console = document.querySelector("#console");
   // Please replace to self-hosted script path.
-  const { SudachiStateless, TokenizeMode } = await import("/v1.0.0.js");
+  import { SudachiStateless, TokenizeMode } from "/v1.0.0.js";
 
   const sudachi = new SudachiStateless();
 
@@ -111,12 +115,18 @@ node test/special_chars.mjs
 
 ## TODO
 
+### Minor
 - Add public link (like the original sudachi-wasm: https://sudachi-wasm.s3.amazonaws.com/v0.1.4.js).
 - Add SudachiStateful examples.
 - Improve documentation.
 - Edit [README.ja.md](README.ja.md).
 - Add demo (like the original sudachi-wasm: https://sudachi-wasm.s3.amazonaws.com/index.html).
+### Major
+- Add dict loading from the .zip to reduce library size.
+- Add default dict being dynamically downloaded from [SudachiDict][Sudachi Dictionary].
+- Add dynamic dict type downloading: "small", "core", "full".
 
 [sudachi.rs]: https://github.com/WorksApplications/sudachi.rs
 [sudachi-wasm]: https://github.com/hata6502/sudachi-wasm
 [Kuroshiro]: https://github.com/hexenq/kuroshiro
+[Sudachi Dictionary]: http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/
