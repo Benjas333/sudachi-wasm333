@@ -154,6 +154,7 @@ node test/special_chars.mjs
 ## TODO
 
 ### Minor
+- Migrate to bun and drop zx.
 - Add public link (like the original sudachi-wasm: https://sudachi-wasm.s3.amazonaws.com/v0.1.4.js).
 - Add SudachiStateful examples.
 - Improve documentation.
