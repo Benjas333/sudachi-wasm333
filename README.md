@@ -6,6 +6,22 @@ This distribution supports both of browser and Node.js.
 
 <!-- #### ✨ [Demo](https://sudachi-wasm.s3.amazonaws.com/index.html) -->
 
+## Why?
+
+Because a lot of Japanese tokenizing projects use [kuromoji.js] ![GitHub last commit](https://img.shields.io/github/last-commit/takuyaa/kuromoji.js) or [Kuroshiro] ![GitHub last commit](https://img.shields.io/github/last-commit/hexenq/kuroshiro) + [kuroshiro-analyzer-kuromoji] ![GitHub last commit](https://img.shields.io/github/last-commit/hexenq/kuroshiro-analyzer-kuromoji) that internally use the [kuromoji] dictionary ![GitHub last commit](https://img.shields.io/github/last-commit/atilika/kuromoji). And although that is not a bad thing, as you may noticed, all of them are considerably outdated.
+
+Fortunately [SudachiDict] is a modern Japanese morphological analyzer that is often updated.
+> So we can use [sudachi-wasm] and forget about outdated dicts. Right?
+
+Well... not exactly. The original [sudachi-wasm] embedded the whole sudachi dictionary in its package code. That implies:
+- Slower performance.
+- Heavier file size.
+- Unable to use another dict files besides the one the package was compiled with.
+
+This library fixes all of that by using dynamic dictionary loading, allowing you to use the latest [Sudachi Dictionary] even if for some reason I forget to update this package.
+
+Right now you have to manually download the [Sudachi Dictionary] you want to use, but I plan to add dynamic downloading too, so the package automatically will download the latest dictionary available.
+
 ## Features
 
 - Updated structure of the original [sudachi-wasm] to reassemble the actual structure of [sudachi.rs].
@@ -21,7 +37,7 @@ This distribution supports both of browser and Node.js.
 
 ### Custom Sudachi Dictionary
 
-Sudachi-wasm333 includes a dictionary packaged by default. But if you want to use a specific version, you can download it from [here][Sudachi Dictionary] and provide the path/url through the class initializer.
+Sudachi-wasm333 includes a dictionary packaged by default (the small one). But if you want to use a specific version, you can download it from [here][Sudachi Dictionary] and provide the path/url through the class initializer.
 
 ### Browser
 
@@ -101,7 +117,8 @@ just build test-all
 ## Build
 
 ```bash
-wasm-pack build --dev --target web && zx ../wasm-pack-inline.mjs
+cd sudachi
+wasm-pack build --dev --target web && zx ./wasm-pack-inline.mjs
 ```
 
 ## Test
@@ -120,14 +137,17 @@ Then, access to the [local server](http://127.0.0.1:8080/test/browser.html).
 ### Node.js
 
 ```bash
+cd sudachi
 node test/node.mjs
 ```
 
 ```bash
+cd sudachi
 node test/node_stateful.mjs
 ```
 
 ```bash
+cd sudachi
 node test/special_chars.mjs
 ```
 
@@ -146,5 +166,9 @@ node test/special_chars.mjs
 
 [sudachi.rs]: https://github.com/WorksApplications/sudachi.rs
 [sudachi-wasm]: https://github.com/hata6502/sudachi-wasm
+[kuromoji]: https://github.com/atilika/kuromoji
+[kuromoji.js]: https://github.com/takuyaa/kuromoji.js
 [Kuroshiro]: https://github.com/hexenq/kuroshiro
+[kuroshiro-analyzer-kuromoji]: https://github.com/hexenq/kuroshiro-analyzer-kuromoji
+[SudachiDict]: https://github.com/WorksApplications/SudachiDict
 [Sudachi Dictionary]: http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/
