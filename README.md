@@ -12,9 +12,10 @@ This distribution supports both of browser and Node.js.
 - SudachiStateless and SudachiStateful classes implementation.
 - Slightly improved library docstrings and types.
 - Added dynamic dict loading, so a custom dict path/url can be provided.
-- Improved performance.
 - Improved file size because of dynamic dict loading.
 - Structure kinda inspired in [Kuroshiro] initialization.
+- Improved performance.
+![](https://pbs.twimg.com/media/G4Y5I0JWEAAAdjj?format=png&name=small)
 
 ## Usage
 
@@ -34,7 +35,7 @@ Sudachi-wasm333 includes a dictionary packaged by default. But if you want to us
 
   const console = document.querySelector("#console");
   // Please replace to self-hosted script path.
-  import { SudachiStateless, TokenizeMode } from "/v1.0.0.js";
+  import { SudachiStateless, TokenizeMode } from "/v1.0.3.js";
 
   const sudachi = new SudachiStateless();
 
@@ -79,11 +80,28 @@ console.log(sudachi.tokenize_raw("今日は良い天気なり。", TokenizeMode.
 
 - [wasm-pack](https://github.com/rustwasm/wasm-pack)
 - [zx](https://github.com/google/zx)
+- [just](https://github.com/casey/just) (Optional)
+
+## Just (Optional)
+
+All build and test related commands can be found in the justfile.
+
+```bash
+just help
+```
+
+```bash
+just dev
+```
+
+```bash
+just build test-all
+```
 
 ## Build
 
 ```bash
-wasm-pack build --dev --target web && cd pkg && zx ../wasm-pack-inline.mjs && cd ..
+wasm-pack build --dev --target web && zx ../wasm-pack-inline.mjs
 ```
 
 ## Test
@@ -96,8 +114,8 @@ npx http-server
 
 Then, access to the [local server](http://127.0.0.1:8080/test/browser.html).
 
-> I actually prefer [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).<br>
-> -Benjas333
+> I actually prefer [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+> <br>- Benjas333
 
 ### Node.js
 

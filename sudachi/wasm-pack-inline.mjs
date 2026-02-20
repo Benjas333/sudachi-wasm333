@@ -1,8 +1,9 @@
 #!/usr/bin/env zx
- 
-const packageObject = JSON.parse(await fs.readFile('package.json', 'utf-8'));
+console.log("Parsing built package...");
+
+const packageObject = JSON.parse(await fs.readFile('pkg/package.json', 'utf-8'));
 const wasmPath = packageObject.files.find(file => file.endsWith('.wasm'));
-const wasm = await fs.readFile(wasmPath);
+const wasm = await fs.readFile(`pkg/${wasmPath}`);
 const wasmBASE64 = wasm.toString('base64');
 
 const initializeScript = `
@@ -43,7 +44,7 @@ if (!packageObject.module) {
     packageObject.module = "sudachi.js";
 }
 
-await fs.appendFile(packageObject.module, initializeScript);
+await fs.appendFile(`pkg/${packageObject.module}`, initializeScript);
 
 packageObject.files = packageObject.files.filter(file => !file.endsWith('.wasm'));
 packageObject.files.push("resources");
@@ -51,4 +52,5 @@ packageObject.main = packageObject.module;
 packageObject.name = "sudachi-wasm333"
 packageObject.type = "module";
 
-await fs.writeFile('package.json', JSON.stringify(packageObject, null, 2));
+await fs.writeFile('pkg/package.json', JSON.stringify(packageObject, null, 2));
+console.log("✅ Built package parsed and modified successfully.");

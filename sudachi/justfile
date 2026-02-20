@@ -1,0 +1,59 @@
+set shell := ["powershell.exe", "-c"]
+
+alias help := default
+
+# Print this message
+default:
+        @just --list
+
+
+# Parse the output built file (this is called automatically)
+[group: "Development"]
+parse:
+        zx wasm-pack-inline.mjs
+
+# Build in development mode
+[group: "Development"]
+dev:
+        wasm-pack build --dev --target web
+        just parse
+
+# Build in release mode
+[group: "Development"]
+build:
+        wasm-pack build --release --target web
+        just parse
+
+
+# Run all node tests
+[group: "Misc"]
+test-all: test-node test-stateful test-chars
+
+# Run node test
+[group: "Misc"]
+test-node:
+        node test/node.mjs
+
+# Run node test using a Stateful Tokenizer
+[group: "Misc"]
+test-stateful:
+        node test/node_stateful.mjs
+
+# Run special chars test
+[group: "Misc"]
+test-chars:
+        node test/special_chars.mjs
+
+
+# Remove all generated files
+[group: "Cleanup"]
+clean-all:
+	Remove-Item -Recurse -Force pkg/* -ErrorAction SilentlyContinue
+
+
+# Publish the package (includes pre build)
+[group: "Publish"]
+[working-directory: "pkg"]
+publish: build test-all
+        npm pack
+        npm publish

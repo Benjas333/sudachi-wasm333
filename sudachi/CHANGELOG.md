@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [1.0.3] - 2026-02-19
+
+### Added
+
+- justfile for easier building and testing
+
+### Changed
+
+- Merged upstream last commit
+- Merged old wasm32 `system_specific_name()` with the new `make_system_specific_name()` from the upstream last commit
+- Minor changes on `wasm-pack-inline.mjs`
+- Updated `README.md`
+
 ## [1.0.2] - 2025-10-03
 
 ### Changed

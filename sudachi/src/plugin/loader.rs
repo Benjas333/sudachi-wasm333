@@ -75,7 +75,8 @@ fn make_system_specific_name(s: &str) -> Option<String> {
     target_os = "ios",
     target_os = "tvos",
     target_os = "watchos",
-    target_os = "visionos"
+    target_os = "visionos",
+    target_arch = "wasm32",
 ))]
 // Apple embedded platforms do not support dynamic library loading (DSO plugins)
 // due to platform security restrictions. Returning None here
@@ -86,7 +87,6 @@ fn make_system_specific_name(_s: &str) -> Option<String> {
 }
 
 
-#[cfg(not(target_arch = "wasm32"))]
 fn system_specific_name(s: &str) -> Option<String> {
     if s.contains('.') {
         None
@@ -102,11 +102,6 @@ fn system_specific_name(s: &str) -> Option<String> {
             _ => None,
         }
     }
-}
-
-#[cfg(target_arch = "wasm32")]
-fn system_specific_name(_s: &str) -> Option<String> {
-    None
 }
 
 impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
