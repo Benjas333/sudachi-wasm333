@@ -244,25 +244,39 @@ impl DefaultInputTextPlugin {
 }
 
 impl InputTextPlugin for DefaultInputTextPlugin {
+    #[cfg(not(target_arch = "wasm32"))]
+    fn set_up(
+        &mut self,
+        settings: &Value,
+        config: &Config,
+        _grammar: &Grammar,
+    ) -> SudachiResult<()> {
+        let settings: PluginSettings = serde_json::from_value(settings.clone())?;
+
+        let rewrite_file_path = config.complete_path(
+            settings
+                .rewriteDef
+                .unwrap_or_else(|| DEFAULT_REWRITE_DEF_FILE.into()),
+        );
+
+        if rewrite_file_path.is_ok() {
+            let reader = BufReader::new(fs::File::open(rewrite_file_path?)?);
+            self.read_rewrite_lists(reader)?;
+        } else {
+            let reader = BufReader::new(DEFAULT_REWRITE_DEF_BYTES);
+            self.read_rewrite_lists(reader)?;
+        }
+
+        Ok(())
+    }
+
+    #[cfg(target_arch = "wasm32")]
     fn set_up(
         &mut self,
         _settings: &Value,
         _config: &Config,
         _grammar: &Grammar,
     ) -> SudachiResult<()> {
-        // let settings: PluginSettings = serde_json::from_value(settings.clone())?;
-
-        // let rewrite_file_path = config.complete_path(
-        //     settings
-        //         .rewriteDef
-        //         .unwrap_or_else(|| DEFAULT_REWRITE_DEF_FILE.into()),
-        // );
-
-        // if rewrite_file_path.is_ok() {
-        //     let reader = BufReader::new(fs::File::open(rewrite_file_path?)?);
-        //     self.read_rewrite_lists(reader)?;
-        // } else {
-        // }
         let reader = BufReader::new(DEFAULT_REWRITE_DEF_BYTES);
         self.read_rewrite_lists(reader)?;
 

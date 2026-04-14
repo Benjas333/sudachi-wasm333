@@ -79,10 +79,17 @@ impl Default for CharacterCategory {
 }
 
 impl CharacterCategory {
+    #[cfg(not(target_arch = "wasm32"))]
     /// Creates a character category from file
-    pub fn from_file(_path: &Path) -> SudachiResult<CharacterCategory> {
-        let reader = BufReader::new(&include_bytes!("../../../resources/char.def")[0..]);
+    pub fn from_file(path: &Path) -> SudachiResult<CharacterCategory> {
+        let reader = BufReader::new(fs::File::open(path)?);
         Self::from_reader(reader)
+    }
+
+    /// Creates a character category from file
+    #[cfg(target_arch = "wasm32")]
+    pub fn from_file(_path: &Path) -> SudachiResult<CharacterCategory> {
+        Self::from_bytes(&include_bytes!("../../../resources/char.def")[0..])
     }
 
     pub fn from_bytes(bytes: &[u8]) -> SudachiResult<CharacterCategory> {

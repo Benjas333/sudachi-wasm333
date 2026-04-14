@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning].
 ### Changed
 
 - Synced and merged to upstream sudachi v0.6.11
+- Refactored must overrides to use `#[cfg(target_arch = "wasm32")]` so its easier to maintain and merge with upstream changes
 
 ## [1.0.3] - 2026-02-19 (v0.6.10)
 
