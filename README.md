@@ -103,14 +103,17 @@ console.log(sudachi.tokenize_raw("今日は良い天気なり。", TokenizeMode.
 All build and test related commands can be found in the justfile.
 
 ```bash
+cd sudachi
 just help
 ```
 
 ```bash
+cd sudachi
 just dev
 ```
 
 ```bash
+cd sudachi
 just build test-all
 ```
 
