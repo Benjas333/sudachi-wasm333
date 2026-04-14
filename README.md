@@ -105,15 +105,7 @@ All build and test related commands can be found in the justfile.
 ```bash
 cd sudachi
 just help
-```
-
-```bash
-cd sudachi
 just dev
-```
-
-```bash
-cd sudachi
 just build test-all
 ```
 
