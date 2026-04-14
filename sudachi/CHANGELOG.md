@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
-## [1.0.3] - 2026-02-19
+## [1.0.4] - 2026-04-13 (v0.6.11)
+
+### Changed
+
+- Synced and merged to upstream sudachi v0.6.11
+
+## [1.0.3] - 2026-02-19 (v0.6.10)
 
 ### Added
 
@@ -22,13 +28,13 @@ and this project adheres to [Semantic Versioning].
 - Minor changes on `wasm-pack-inline.mjs`
 - Updated `README.md`
 
-## [1.0.2] - 2025-10-03
+## [1.0.2] - 2025-10-03 (v0.6.10)
 
 ### Changed
 
 - Package now includes the small dict version, because the full one is 3x larger.
 
-## [1.0.1] - 2025-10-03
+## [1.0.1] - 2025-10-03 (v0.6.10)
 
 ### Added
 
@@ -42,7 +48,7 @@ and this project adheres to [Semantic Versioning].
 
 - Resources dir not included in package (lol)
 
-## [1.0.0] - 2025-10-03
+## [1.0.0] - 2025-10-03 (v0.6.10)
 
 - initial release
 
