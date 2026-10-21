@@ -14,15 +14,13 @@ parse:
 
 # Build in development mode
 [group: "Development"]
-dev:
+dev: && parse
         wasm-pack build --dev --target web
-        just parse
 
 # Build in release mode
 [group: "Development"]
-build:
+build: && parse
         wasm-pack build --release --target web
-        just parse
 
 
 # Run all node tests
