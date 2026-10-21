@@ -6,6 +6,12 @@ This distribution supports both of browser and Node.js.
 
 <!-- #### ✨ [Demo](https://sudachi-wasm.s3.amazonaws.com/index.html) -->
 
+> [!IMPORTANT]
+> v0.7 introduces a new dictionary format (V1). When upgrading from v0.6, you need to update the system dictionary and rebuild all user dictionaries against the exact system dictionary that will be used at runtime. The URL of the dictionary distribution page is also changed. See the [migration guide](docs/migration_guide.md).
+
+> [!CAUTION]
+> Release v0.7.* is unstable. It may include breaking changes even between patch versions, so please pin the exact version and review release notes carefully before upgrading.
+
 ## Why?
 
 Because a lot of Japanese tokenizing projects use [kuromoji.js] ![GitHub last commit](https://img.shields.io/github/last-commit/takuyaa/kuromoji.js) or [Kuroshiro] ![GitHub last commit](https://img.shields.io/github/last-commit/hexenq/kuroshiro) + [kuroshiro-analyzer-kuromoji] ![GitHub last commit](https://img.shields.io/github/last-commit/hexenq/kuroshiro-analyzer-kuromoji) that internally use the [kuromoji] dictionary ![GitHub last commit](https://img.shields.io/github/last-commit/atilika/kuromoji). And although that is not a bad thing, as you may noticed, all of them are considerably outdated.
